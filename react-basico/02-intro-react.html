@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exempo 02</title>
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      const atributos = {
+        id: "div-react",
+        children: "DIV criada com React",
+        style: { border: "2px solid blue", backgroundColor: "pink" },
+      };
+      const novaDiv = React.createElement("div", atributos);
+
+      const botao = React.createElement(
+        "button",
+        {
+          id: "botao1",
+          style: { color: "red", backgroundColor: "yellow" },
+          onClick: function () {
+            alert("Olá!");
+          },
+          // children: "Clique aqui!",
+        },
+        "CLIQUE AQUI!"
+      );
+
+      const parag = React.createElement("p", null, "Parágrafo sem frescura.");
+
+      const container = React.createElement("div", { id: "container" }, [
+        novaDiv,
+        parag,
+        botao,
+      ]);
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(container);
+    </script>
+  </body>
+</html>
