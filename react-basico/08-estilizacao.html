@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <!-- v6 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link rel="stylesheet" href="08.css" />
+    <title>08 - Estilização</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const estilo1 = {
+        backgroundColor: "orange",
+        fontSize: "30px",
+        fontFamily: '"Courier New",monospace',
+        border: "4px dotted blue",
+      };
+
+      function BoxItalic({ style, size = "small", ...props }) {
+        return (
+          <div
+            className={`box box--${size}`}
+            style={{ fontStyle: "italic", ...style }}
+            {...props}
+          />
+        );
+      }
+      const container = (
+        <>
+          <BoxItalic
+            id="boxitalic1"
+            style={{
+              backgroundColor: "beige",
+              color: "violet",
+            }}
+          >
+            Primeira caixa em italico.
+          </BoxItalic>
+
+          <BoxItalic
+            id="italic2"
+            children="Segunda caixa em italico"
+            title="Italico deligado"
+            size="large"
+            style={{
+              borderColor: "orange",
+              color: "white",
+              backgroundColor: "chocolate",
+              fontStyle: "normal",
+            }}
+          />
+        </>
+      );
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(container);
+    </script>
+  </body>
+</html>
