@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <!-- v6 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Form com REACT</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      /*
+        Formulário que pede dois números e exibe a soma deles
+      */
+
+      function Form() {
+        // let num1, num2;
+        const [num1, setNum1] = React.useState(0);
+        const [num2, setNum2] = React.useState(0);
+
+        // function handleChange1(event) {
+        //   // num1 = event.target.value;
+        //   setNum1(event.target.value);
+        // }
+
+        // function handleChange2(event) {
+        //   // num2 = event.target.value;
+        //   setNum2(event.target.value);
+        // }
+
+        return (
+          <>
+            <h1>Soma dois números</h1>
+            <form>
+              <div>
+                <label>
+                  <span>Primeiro número</span>
+                  <br />
+                  <input
+                    type="number"
+                    onChange={(event) => setNum1(event.target.value)}
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  <span>Segundo número</span>
+                  <br />
+                  <input
+                    type="number"
+                    onChange={(event) => setNum2(event.target.value)}
+                  />
+                </label>
+              </div>
+              <div>Soma: {Number(num1) + Number(num2)}</div>
+            </form>
+          </>
+        );
+      }
+
+      const container = (
+        <>
+          <Form />
+        </>
+      );
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(container);
+    </script>
+  </body>
+</html>

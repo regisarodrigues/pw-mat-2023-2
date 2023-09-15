@@ -19,31 +19,42 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
+      /*
+      1) Crie um formulário e coloque nele um input numérico com o label "Valor em reais".
+      2) Coloque outro input numérico com o label "Cotação do dólar".
+      3) Coloque, também, uma div para exibir o resultado da conversão de moeda.
+      4) Crie e coloque hooks useRef nos três elementos criados.
+      5) Escreva uma única função handleChange para interceptar a mundança nos dois inputs
+         e atualizar variáveis quando o respectivo valor mudar.
+      6) Usando as variáveis que foram atualizadas em handleChange, exiba na div de resultado
+         o valor convertido.
+      Este exercício contará para a nota de Participação e Assiduidade (PA).
+    */
+
       function Form() {
-        const nomeRef = React.useRef();
-        const sobreNomeRef = React.useRef();
-        const maiuscRef = React.useRef();
+        const realRef = React.useRef();
+        const dolarRef = React.useRef();
         const resultRef = React.useRef();
 
-        let nome, sobrenome, maiusc;
+        let real, dolar;
 
         function handleChange(event) {
-          maiusc = maiuscRef.current.checked;
+          const real = Number(realRef.current.value);
+          const dolar = Number(dolarRef.current.value);
 
-          if (maiusc) {
-            nome = nomeRef.current.value.toUpperCase();
-            sobrenome = sobreNomeRef.current.value.toUpperCase();
-          } else {
-            nome = nomeRef.current.value;
-            sobrenome = sobreNomeRef.current.value;
-          }
+          const convertido = real / dolar;
 
-          resultRef.current.textContent = nome + " " + sobrenome;
+          resultRef.current.textContent = convertido.toLocaleString(
+            // usa as convenções de separador de milhar e decimal
+            // da língua inglesa. Português do Brasil é pt-BR
+            "en-US",
+            // USD ~> Dólar americano ($). Real brasileiro é BRL
+            { style: "currency", currency: "USD" }
+          );
         }
 
         function handleSubmit(event) {
           event.preventDefault();
-          alert(`Olá, ${nome} ${sobrenome}!`);
         }
 
         return (
@@ -52,27 +63,15 @@
             <form onSubmit={handleSubmit}>
               <div>
                 <label>
-                  <span>Nome:</span> <br />
-                  <input ref={nomeRef} onChange={handleChange} />
+                  <span>Valor em reais R$:</span> <br />
+                  <input ref={realRef} onChange={handleChange} />
                 </label>
               </div>
 
               <div>
                 <label>
-                  <span>Sobrenome:</span> <br />
-                  <input ref={sobreNomeRef} onChange={handleChange} />
-                </label>
-              </div>
-
-              <div>
-                <label>
-                  <input
-                    type="checkbox"
-                    ref={maiuscRef}
-                    onClick={handleChange}
-                  />
-                  &nbsp;
-                  <span>Colocar o nome completo em MAIÚSCULAS</span>
+                  <span>Cotação do dólar $:</span> <br />
+                  <input ref={dolarRef} onChange={handleChange} />
                 </label>
               </div>
 
@@ -86,10 +85,6 @@
                 }}
                 ref={resultRef}
               />
-
-              <div>
-                <input type="submit" value="Enviar" />
-              </div>
             </form>
           </>
         );

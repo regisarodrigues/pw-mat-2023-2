@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <!-- v6 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Form com REACT</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      //  7) Após testar e comprovar o funcionamento, tire uma cópia do arquivo e refaça o exercício,
+      //    com cada input tendo sua própria função onChange e usando variáveis de estado (useState)
+      //    para armazenar os valores quando os inputs foram alterados.
+
+      function Form() {
+        const [valorReal, setValorReal] = React.useState(0);
+        const [valorDolar, setValorDolar] = React.useState(0);
+
+        const converte = (n1, n2) => {
+          const result = Number(n1) / Number(n2);
+          return result.toLocaleString(
+            // usa as convenções de separador de milhar e decimal
+            // da língua inglesa. Português do Brasil é pt-BR
+            "en-US",
+            // USD ~> Dólar americano ($). Real brasileiro é BRL
+            { style: "currency", currency: "USD" }
+          );
+        };
+
+        return (
+          <>
+            <h1>Cotação Real para Dolar </h1>
+            <form>
+              <div>
+                <label>
+                  <span>Valor em Real R$: </span>
+                  <br />
+                  <input
+                    type="number"
+                    onChange={(event) => setValorReal(event.target.value)}
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  <span>Cotação Dolar $: </span>
+                  <br />
+                  <input
+                    type="number"
+                    onChange={(event) => setValorDolar(event.target.value)}
+                  />
+                </label>
+              </div>
+              <div>
+                Valor Convertido em dolar:
+                {valorDolar > 0 ? converte(valorReal, valorDolar) : 0}
+              </div>
+            </form>
+          </>
+        );
+      }
+
+      const container = (
+        <>
+          <Form />
+        </>
+      );
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(container);
+    </script>
+  </body>
+</html>
