@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <!-- v6 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>PROVA - REACT</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function Form() {
+        // declarando as variveis e passando e usando o useState para setar os valores
+        const [medidaRaioMenor, setMedidaRaioMenor] = React.useState(0);
+        const [medidaRaioMaior, setMedidaRaioMaior] = React.useState(0);
+
+        // calculo da area
+        const area =
+          Number(medidaRaioMenor) * Number(medidaRaioMaior) * Math.PI;
+
+        // criação do formulario react
+        return (
+          <>
+            <h1>Cálculo da área de uma elipse</h1>
+            <form>
+              <div>
+                <label>
+                  <span>Medida do raio maior: </span>
+                  <br />
+                  <input
+                    type="number"
+                    onChange={(event) => setMedidaRaioMenor(event.target.value)}
+                  />
+                </label>
+              </div>
+              <div>
+                <label>
+                  <span>Medida do raio menor: </span>
+                  <br />
+                  <input
+                    type="number"
+                    onChange={(event) => setMedidaRaioMaior(event.target.value)}
+                  />
+                </label>
+              </div>
+              <div>
+                Valor Área:
+                {/* local form onde mostra o resultado do calculo*/}
+                {area > 0
+                  ? area.toLocaleString("pt-br", {
+                      minimumFractionDigits: 4,
+                      maximumFractionDigits: 4,
+                    })
+                  : 0}
+              </div>
+            </form>
+          </>
+        );
+      }
+
+      // exibindo o formiulario react
+      const container = (
+        <>
+          <Form />
+        </>
+      );
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(container);
+    </script>
+  </body>
+</html>
