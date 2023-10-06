@@ -1,30 +1,52 @@
-import * as React from 'react'
+import { useEffect, useState } from "react";
 
-function Greeting({initialName = ''}) {
-  // 🐨 inicialize o estado como o valor do localStorage
-  // 💰 window.localStorage.getItem('name') ?? initialName
-  const [name, setName] = React.useState(initialName)
+function Greeting({ initialName = "" }) {
+  const [name, setName] = useState(() => getInitialName());
 
-  // 🐨 Aqui é onde usamos `React.useEffect`.
-  // A função deve armazenar `name` no localStorage.
-  // 💰 window.localStorage.setItem('name', name)
+  const [theme, setTheme] = useState("lightTheme");
+
+  useEffect(() => {
+    localStorage.setItem("name", name);
+  },[name]);
 
   function handleChange(event) {
-    setName(event.target.value)
+    setName(event.target.value);
   }
+
+  function getInitialName() {
+    console.log("Leu localStorage");
+    return localStorage.getItem("name") ?? initialName;
+  }
+
   return (
-    <div>
-      <form>
+    <div className={theme}>
+      <form autoComplete="off">
+        <fieldset>
+          <legend>Tema</legend>
+          <input
+            type="radio"
+            checked={theme === "lightTheme"}
+            onClick={() => setTheme("lightTheme")}
+          />
+          &nbsp;Calro
+          <br />
+          <input
+            type="radio"
+            checked={theme === "darkTheme"}
+            onClick={() => setTheme("darkTheme")}
+          />
+          Escuro
+        </fieldset>
         <label htmlFor="name">Name: </label>
         <input value={name} onChange={handleChange} id="name" />
       </form>
-      {name ? <strong>Olá {name}</strong> : 'Por favor, informe seu nome'}
+      {name ? <strong>Olá {name}</strong> : "Por favor, informe seu nome"}
     </div>
-  )
+  );
 }
 
-function App() {
-  return <Greeting />
+function Exercicio02() {
+  return <Greeting />;
 }
 
-export default App
+export default Exercicio02;
